@@ -14,7 +14,7 @@ exports.getBootcamps = async (req, res, next) => {
       data: bootcamps,
     });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -52,7 +52,7 @@ exports.createBootcamp = async (req, res, next) => {
       .status(201)
       .json({ success: true, msg: `Create a bootcamp`, data: bootcamp });
   } catch (err) {
-    res.status(400).json({ success: false, message: "Bad Request" });
+    next(err);
   }
 };
 
