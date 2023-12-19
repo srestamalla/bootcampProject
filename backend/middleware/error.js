@@ -1,9 +1,19 @@
+const ErrorResponse = require("../utils/errorResponse");
+
 const errorHandler = (err, req, res, next) => {
+  let error = { ...err };
+  error.message = err.message;
   // Log to console for dev
   console.log(err.stack.red);
+
+  // Mongoose bad Object Id
+  if (err.name === "CastError") {
+    const message = `Bootcamp not found with id ${err.value}`;
+    error = new ErrorResponse(message, 404);
+  }
   res
-    .status(err.statusCode || 500)
-    .json({ success: false, error: err.message || "Server Error" });
+    .status(error.statusCode || 500)
+    .json({ success: false, error: error.message || "Server Error" });
 };
 
 module.exports = errorHandler;
