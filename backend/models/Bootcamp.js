@@ -117,11 +117,11 @@ BootcampSchema.pre("save", async function (next) {
     street: loc[0].streetName,
     state: loc[0].state,
     zipcode: loc[0].zipcode,
-    country: loc[0].countryCode,
+    country: loc[0].countryCode.toUpperCase(),
   };
 
-  // Do not save address in DB
-  this.address = undefined;
+  // // Do not save address in DB
+  // this.address = undefined;
   next();
 });
 
